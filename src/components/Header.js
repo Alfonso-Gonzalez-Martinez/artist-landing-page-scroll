@@ -88,7 +88,7 @@ const Header = () => {
           <nav>
             {/* Add social media links based on the `socials` data */
               socials.map((element, index) => (
-                <a key={index} href={element.url} style={{marginRight: "13px"}}>
+                <a key={index} href={element.url} style={{marginRight: "13px"}} target="blank">
                   <FontAwesomeIcon icon={element.icon} size="2x" />
                 </a>
                 ))
