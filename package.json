@@ -1,4 +1,5 @@
 {
+  "homepage": "https://Pi4n0.github.io/artist-landing-page-scroll",
   "name": "graded-assessment",
   "version": "0.1.0",
   "type": "module",
@@ -27,7 +28,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "browserslist": {
     "production": [
@@ -42,6 +45,7 @@
     ]
   },
   "devDependencies": {
+    "gh-pages": "^6.1.1",
     "prettier": "^2.7.1"
   }
 }
