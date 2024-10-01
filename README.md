@@ -1,7 +1,7 @@
 # Project Title: Artist Landing Page (Scroll Version)
 
 Check the website at: 
-[Project Banner](https://alfonso-gonzalez-martinez.github.io/artist-landing-page-scroll/)
+[Artist Landing Page (Scroll Version)](https://alfonso-gonzalez-martinez.github.io/artist-landing-page-scroll/)
 
 ## Description
 
