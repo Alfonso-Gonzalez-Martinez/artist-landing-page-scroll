@@ -1,10 +1,9 @@
-import React from "react";
 import {Box, Flex} from "@chakra-ui/react";
 
-const Footer = () => {
+const Footer: React.FC = () => {
   return (
-    <Box backgroundColor="#18181b">
-      <footer>
+    <Box backgroundColor="#18181b" data-testid="footer">
+      <footer >
         <Flex
           margin="0 auto"
           px={12}

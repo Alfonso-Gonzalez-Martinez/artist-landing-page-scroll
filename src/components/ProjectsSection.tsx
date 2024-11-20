@@ -1,14 +1,20 @@
-import React from "react";
-import FullScreenSection from "./FullScreenSection.js";
+import FullScreenSection from "./FullScreenSection";
 import { Box, Heading } from "@chakra-ui/react";
-import Card from "./Card.js";
+import Card from "./Card";
 
 import photo1 from "../images/ken-alfonso.jpg";
 import photo2 from "../images/keyboard.jpg";
 import photo3 from "../images/namasduo.jpg";
 import photo4 from "../images/orchestra.jpg";
 
-const projects = [
+interface Projects {
+  title: string;
+  description: string;
+  imageSrc: string;
+  website: string;
+}
+
+const projects: Projects[] = [
   {
     title: "In Honour of Horák",
     description:
@@ -39,7 +45,7 @@ const projects = [
   },
 ];
 
-const ProjectsSection = () => {
+const ProjectsSection: React.FC = () => {
   return (
     <FullScreenSection
       backgroundColor="#14532d"
@@ -64,6 +70,7 @@ const ProjectsSection = () => {
             description={project.description}
             imageSrc={project.imageSrc}
             website={project.website}
+            data-testid="card"
           />
         ))}
       </Box>

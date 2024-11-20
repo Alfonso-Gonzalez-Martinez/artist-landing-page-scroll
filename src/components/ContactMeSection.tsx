@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import { useFormik } from "formik";
+import { useFormik, FormikHelpers } from "formik";
 import {
   Box,
   Button,
@@ -13,18 +13,32 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import * as Yup from 'yup';
-import FullScreenSection from "./FullScreenSection.js";
-import useSubmit from "../hooks/useSubmit.js";
-import {useAlertContext} from "../context/alertContext.js";
+import FullScreenSection from "./FullScreenSection";
+import useSubmit from "../hooks/useSubmit";
+import {useAlertContext} from "../context/alertContext";
 
-const LandingSection = () => {
+interface Response {
+  type: 'success' | 'error';
+  message: string;
+}
+
+interface FormValues {
+  firstName: "";
+  email: "";
+  type: "";
+  comment: "";
+}
+
+const LandingSection: React.FC = () => {
   const {isLoading, response, submit} = useSubmit();
   const { onOpen } = useAlertContext();
   const url = "www.google.com"
 
 
-  const handleResponse = () => {
-    onOpen(response.type, response.message);
+  const handleResponse = (): void => {
+    if(response){
+      onOpen(response.type, response.message);
+    }
   }
 
   useEffect(() => {if(response){
@@ -32,7 +46,7 @@ const LandingSection = () => {
       if(response.type === "success"){
         formik.resetForm()}} },[response]);
 
-  const formik = useFormik({
+  const formik = useFormik<FormValues>({
     initialValues: {
       firstName: "",
       email: "",
@@ -40,7 +54,7 @@ const LandingSection = () => {
       comment: "",
     },
 
-    onSubmit: async (values) => {
+    onSubmit: async (values: FormValues, helpers: FormikHelpers<FormValues>) => {
         try {
           await submit(url, values);
         }
@@ -73,7 +87,7 @@ const LandingSection = () => {
           <form onSubmit={formik.handleSubmit}>
             <VStack spacing={4}>
 
-              <FormControl isInvalid={formik.touched.firstName && formik.errors.firstName}>
+              <FormControl isInvalid={!!(formik.touched.firstName && formik.errors.firstName)}>
                 <FormLabel htmlFor="firstName">Name</FormLabel>
                 <Input
                   {...formik.getFieldProps("firstName")}
@@ -83,7 +97,7 @@ const LandingSection = () => {
                 <FormErrorMessage>{formik.errors.firstName}</FormErrorMessage>
               </FormControl>
 
-              <FormControl isInvalid={formik.touched.email && formik.errors.email}>
+              <FormControl isInvalid={!!(formik.touched.email && formik.errors.email)}>
                 <FormLabel htmlFor="email">Email Address</FormLabel>
                 <Input
                 {...formik.getFieldProps("email")}
@@ -96,7 +110,7 @@ const LandingSection = () => {
 
               <FormControl>
                 <FormLabel htmlFor="type">Type of enquiry</FormLabel>
-                <Select id="type" name="type"
+                <Select id="type"
                   {...formik.getFieldProps("type")}>
                   <option  style={{ color: 'black' }} value="hireMe" >Freelance project proposal</option>
                   <option  style={{ color: 'black' }} value="openSource">Consultancy session</option>
@@ -104,7 +118,7 @@ const LandingSection = () => {
                 </Select>
               </FormControl>
 
-              <FormControl isInvalid={formik.touched.comment && formik.errors.comment}>
+              <FormControl isInvalid={!!(formik.touched.comment && formik.errors.comment)}>
                 <FormLabel htmlFor="comment">Your message</FormLabel>
                 <Textarea
                   {...formik.getFieldProps("comment")}

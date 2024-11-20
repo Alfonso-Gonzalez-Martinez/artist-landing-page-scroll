@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import { faEnvelope, IconDefinition } from "@fortawesome/free-solid-svg-icons";
 import {
   faGithub,
   faLinkedin,
@@ -9,7 +9,12 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import { Box, HStack } from "@chakra-ui/react";
 
-const socials = [
+interface Social {
+  icon: IconDefinition;
+  url: string;
+}
+
+const socials: Social[] = [
   {
     icon: faEnvelope,
     url: "mailto: hello@example.com",
@@ -35,7 +40,7 @@ const socials = [
 
 
 const Header = () => {
-  const handleClick = (anchor) => (event) => {
+  const handleClick = (anchor: string) => (event: React.MouseEvent) => {
     event.preventDefault();
     const id = `${anchor}-section`;
     const element = document.getElementById(id);
@@ -77,6 +82,7 @@ const Header = () => {
       transitionDuration=".3s"
       transitionTimingFunction="ease-in-out"
       backgroundColor="#18181b"
+      data-testid="banner"
     >
       <Box color="white" maxWidth="1280px" margin="0 auto">
         <HStack
@@ -86,9 +92,9 @@ const Header = () => {
           alignItems="center"
         >
           <nav>
-            {/* Add social media links based on the `socials` data */
+            {
               socials.map((element, index) => (
-                <a key={index} href={element.url} style={{marginRight: "13px"}} target="blank">
+                <a key={index} href={element.url} style={{marginRight: "13px"}} target="_blank"  data-testid={`${element.icon.iconName}-link`}>
                   <FontAwesomeIcon icon={element.icon} size="2x" />
                 </a>
                 ))
@@ -96,7 +102,6 @@ const Header = () => {
           </nav>
           <nav>
             <HStack spacing={8} textAlign="center">
-              {/* Add links to Projects and Contact me section */}
                 <a href="#contactme-section" onClick={handleClick("contactme")}>Contact me</a>
                 <a href="#projects-section" onClick={handleClick("projects")}>Projects</a>
             </HStack>
